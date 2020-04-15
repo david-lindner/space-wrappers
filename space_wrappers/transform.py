@@ -31,7 +31,7 @@ class _LinearTransform(object):
         self._dtype = dtype
 
     def __call__(self, x):
-        return self._dtype(self._offset + self._slope * float(x))
+        return np.array([self._dtype(self._offset + self._slope * float(x))])
 
 
 class _LinearTransformArray(object):
@@ -68,7 +68,7 @@ class _DecomposeTuple(object):
         return tuple(decomposed)
 
 
-# Discretization 
+# Discretization
 def discretize(space, steps):
     """
     Creates a discretized version of `space` and returns
@@ -86,14 +86,14 @@ def discretize(space, steps):
     """
 
     # there are two possible ways how we could handle already
-    # discrete spaces. 
+    # discrete spaces.
     #  1) throw an error because (unless
-    #     steps is configured to fit) we would try to convert 
+    #     steps is configured to fit) we would try to convert
     #     an already discrete space to one with a different number
     #     of states.
     #  2) keep the space as is.
-    # here, we implement the second. This allows scripts that 
-    # train a discrete agent to just apply discretize, only 
+    # here, we implement the second. This allows scripts that
+    # train a discrete agent to just apply discretize, only
     # changing envs that are not already discrete.
 
     if is_discrete(space):
